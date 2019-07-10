@@ -1,8 +1,19 @@
+const app = require('../src/best-charge');
 describe('Take out food', function () {
 
-  it('should generate best charge when best is 指定菜品半价', function() {
+  it('should return a object array when invoke getItems given selectedItems', () => {
+    const selectedItems = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
+    const items = [
+      { id: 'ITEM0001', count: 1 },
+      { id: 'ITEM0013', count: 2 },
+      { id: 'ITEM0022', count: 1 }
+    ]
+    expect(app.getItems(selectedItems)).toEqual(items);
+  });
+
+  it('should generate best charge when best is 指定菜品半价', function () {
     let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
-    let summary = bestCharge(inputs).trim();
+    let summary = app.bestCharge(inputs).trim();
     let expected = `
 ============= 订餐明细 =============
 黄焖鸡 x 1 = 18元
@@ -17,9 +28,9 @@ describe('Take out food', function () {
     expect(summary).toEqual(expected)
   });
 
-  it('should generate best charge when best is 满30减6元', function() {
+  it('should generate best charge when best is 满30减6元', function () {
     let inputs = ["ITEM0013 x 4", "ITEM0022 x 1"];
-    let summary = bestCharge(inputs).trim();
+    let summary = app.bestCharge(inputs).trim();
     let expected = `
 ============= 订餐明细 =============
 肉夹馍 x 4 = 24元
@@ -33,9 +44,9 @@ describe('Take out food', function () {
     expect(summary).toEqual(expected)
   });
 
-  it('should generate best charge when no promotion can be used', function() {
+  it('should generate best charge when no promotion can be used', function () {
     let inputs = ["ITEM0013 x 4"];
-    let summary = bestCharge(inputs).trim();
+    let summary = app.bestCharge(inputs).trim();
     let expected = `
 ============= 订餐明细 =============
 肉夹馍 x 4 = 24元
