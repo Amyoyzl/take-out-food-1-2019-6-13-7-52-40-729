@@ -9,10 +9,22 @@ const getItems = selectedItems => {
   return items;
 }
 
+const getItemsInfo = (items, allItems) => {
+  for (let i = 0; i < items.length; i++) {
+    allItems.forEach(eItem => {
+      if (items[i].id == eItem.id) {
+        items[i].name = eItem.name;
+        items[i].price = eItem.price;
+      }
+    })
+  }
+  return items;
+}
+
 const bestCharge = selectedItems => {
   // TODO 
 }
 
 module.exports = {
-  bestCharge, getItems,
+  bestCharge, getItems, getItemsInfo,
 }
